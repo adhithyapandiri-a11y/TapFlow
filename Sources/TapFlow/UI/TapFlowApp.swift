@@ -1,15 +1,18 @@
 import AppKit
+import ServiceManagement
 import SwiftUI
 import UniformTypeIdentifiers
 
 @main
 struct TapFlowApp: App {
+    @NSApplicationDelegateAdaptor(TapFlowAppDelegate.self) private var appDelegate
     @StateObject private var detector = TapDetector()
     @StateObject private var settings = TapActionSettings()
+    @StateObject private var loginItem = LoginItemController()
 
     var body: some Scene {
         WindowGroup("TapFlow", id: "main") {
-            TapFlowWindow(detector: detector, settings: settings)
+            TapFlowWindow(detector: detector, settings: settings, loginItem: loginItem)
                 .frame(minWidth: 820, minHeight: 620)
                 .onAppear {
                     syncActions()
@@ -34,6 +37,20 @@ struct TapFlowApp: App {
         detector.configure(actions: Dictionary(uniqueKeysWithValues: settings.actions.filter(\.isEnabled).map { action in
             (action.tapCount, { action.perform() })
         }))
+    }
+}
+
+private final class TapFlowAppDelegate: NSObject, NSApplicationDelegate {
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        false
+    }
+
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        let loginStatus = SMAppService.mainApp.status
+        guard loginStatus == .enabled || loginStatus == .requiresApproval else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
+            NSApp.windows.first(where: { $0.title == "TapFlow" })?.orderOut(nil)
+        }
     }
 }
 
@@ -73,6 +90,7 @@ private struct MenuBarPanel: View {
 private struct TapFlowWindow: View {
     @ObservedObject var detector: TapDetector
     @ObservedObject var settings: TapActionSettings
+    @ObservedObject var loginItem: LoginItemController
 
     var body: some View {
         NavigationSplitView {
@@ -89,7 +107,7 @@ private struct TapFlowWindow: View {
                 case .tapActions:
                     TapActionsView(detector: detector, settings: settings)
                 case .settings:
-                    DetectionSettingsView(detector: detector, settings: settings)
+                    DetectionSettingsView(detector: detector, settings: settings, loginItem: loginItem)
                 case .about:
                     AboutView()
                 }
@@ -279,6 +297,7 @@ private struct TapActionRow: View {
 private struct DetectionSettingsView: View {
     @ObservedObject var detector: TapDetector
     @ObservedObject var settings: TapActionSettings
+    @ObservedObject var loginItem: LoginItemController
 
     var body: some View {
         Form {
@@ -316,6 +335,18 @@ private struct DetectionSettingsView: View {
                 }
                 Text("TapFlow waits briefly after your final tap to distinguish a single, double, or triple tap.")
                     .foregroundStyle(.secondary)
+            }
+            Section("Background") {
+                Toggle("Open at Login", isOn: Binding(
+                    get: { loginItem.isEnabled },
+                    set: { loginItem.setEnabled($0) }
+                ))
+                Text("TapFlow stays available in the menu bar when you close this window. Keep the app in Applications for login launch to work reliably.")
+                    .foregroundStyle(.secondary)
+                if let statusMessage = loginItem.statusMessage {
+                    Text(statusMessage)
+                        .foregroundStyle(loginItem.isEnabled ? Color.secondary : Color.red)
+                }
             }
         }
         .formStyle(.grouped)

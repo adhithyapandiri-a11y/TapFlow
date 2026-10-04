@@ -16,6 +16,8 @@ Use this checklist before tagging a release. Sensor checks require supported phy
 - [ ] Choose a custom sound, restart the app, and verify the selection persists and plays.
 - [ ] Adjust sensitivity and sequence delay, restart, and verify both values persist.
 - [ ] Check the menu-bar pause/resume and quit controls.
+- [ ] Confirm closing the settings window leaves TapFlow running in the menu bar.
+- [ ] Enable/disable Open at Login and verify its state in System Settings > General > Login Items and after signing out/in.
 - [ ] Check light and dark system appearances, long file names/URLs, and window resizing.
 
 ## Hardware and OS
