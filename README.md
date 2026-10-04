@@ -33,10 +33,11 @@ git clone https://github.com/adhithyapandiri-a11y/TapFlow.git
 cd TapFlow
 swift package resolve
 bash scripts/package-app.sh
-open "outputs/TapFlow.app"
+sudo ditto outputs/TapFlow.app /Applications/TapFlow.app
+open /Applications/TapFlow.app
 ```
 
-The packaging script builds a release executable, generates the macOS app icon, and assembles `outputs/TapFlow.app`. The output directory is intentionally excluded from Git.
+The packaging script builds a release executable, generates the macOS app icon, and assembles `outputs/TapFlow.app`. The commands above then install it for all user accounts in `/Applications` and launch it. macOS prompts for an administrator password for the system-wide install. The output directory is intentionally excluded from Git.
 
 To run from Xcode, choose **File > Open**, select `Package.swift`, select the `TapFlow` scheme and **My Mac**, then press **Run**.
 
