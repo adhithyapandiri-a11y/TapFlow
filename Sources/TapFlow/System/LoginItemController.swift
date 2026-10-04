@@ -7,8 +7,17 @@ final class LoginItemController: ObservableObject {
     @Published private(set) var statusMessage: String?
 
     private let service = SMAppService.mainApp
+    private let defaultRegistrationKey = "didConfigureDefaultLoginItem"
 
     init() {
+        if !UserDefaults.standard.bool(forKey: defaultRegistrationKey) {
+            do {
+                try service.register()
+                UserDefaults.standard.set(true, forKey: defaultRegistrationKey)
+            } catch {
+                statusMessage = error.localizedDescription
+            }
+        }
         refreshStatus()
     }
 

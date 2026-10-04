@@ -18,6 +18,7 @@ Use this checklist before tagging a release. Sensor checks require supported phy
 - [ ] Check the menu-bar pause/resume and quit controls.
 - [ ] Confirm closing the settings window leaves TapFlow running in the menu bar.
 - [ ] Enable/disable Open at Login and verify its state in System Settings > General > Login Items and after signing out/in.
+- [ ] On a fresh user profile, confirm Open at Login registers on first launch and can be disabled.
 - [ ] Check light and dark system appearances, long file names/URLs, and window resizing.
 
 ## Hardware and OS

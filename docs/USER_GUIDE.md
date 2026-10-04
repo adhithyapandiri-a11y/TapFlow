@@ -47,7 +47,7 @@ To open the package in Xcode, choose **File > Open** and select `Package.swift`.
 
 ## Menu bar and shortcuts
 
-TapFlow runs as a menu-bar app and does not show a Dock icon. Closing its settings window leaves tap detection running; use the hand icon in the menu bar to reopen settings, pause/resume listening, or quit. Enable **Open at Login** in Settings to have macOS start TapFlow quietly in the background when you sign in. Keep TapFlow in `/Applications` and at the same location after enabling this option. If macOS asks for approval, allow it under **System Settings > General > Login Items**.
+TapFlow runs as a menu-bar app and does not show a Dock icon. Closing its settings window leaves tap detection running; use the hand icon in the menu bar to reopen settings, pause/resume listening, or quit. **Open at Login** is enabled by default on first launch; turn it off in Settings if you prefer to launch TapFlow manually. Keep TapFlow in `/Applications` and at the same location for login launch to work reliably. If macOS asks for approval, allow it under **System Settings > General > Login Items**.
 
 Shortcuts are invoked through macOS's `/usr/bin/shortcuts run` command. A shortcut that asks for input, requests confirmation, or otherwise needs user interaction may show a macOS/Shortcuts prompt. TapFlow cannot suppress interaction required by the shortcut itself.
 
