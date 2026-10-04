@@ -1,0 +1,24 @@
+# SwiftPM and Xcode build products
+.build/
+.swiftpm/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+
+# Generated local app bundles and archives
+outputs/
+dist/
+*.dmg
+*.pkg
+
+# macOS metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Editor and temporary files
+.idea/
+.vscode/
+*.swp
+*.tmp
