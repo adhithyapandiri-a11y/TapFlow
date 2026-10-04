@@ -52,7 +52,7 @@ For detailed setup and troubleshooting, see the [User Guide](docs/USER_GUIDE.md)
 - The local app bundle is unsigned. Public distribution requires Apple Developer signing, hardened runtime configuration, notarization, and clean-machine verification.
 - Shortcuts that request input or confirmation can show their own dialogs.
 - A custom sound is stored as a local file path; moving or deleting that file will break the selection.
-- This repository does not yet contain a license. Redistribution and reuse terms need to be chosen before an open-source release.
+- The source code is licensed under the MIT License; see [LICENSE](LICENSE). The app is experimental and provided without warranty.
 
 ## Repository map
 
