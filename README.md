@@ -26,10 +26,10 @@ After a public repository and signed release are published, use that repository'
 
 ## Build from source
 
-Copy the repository's HTTPS or SSH URL from GitHub's **Code** menu, then run:
+Clone TapFlow and build the local app:
 
 ```sh
-git clone <repository-url>
+git clone https://github.com/adhithyapandiri-a11y/TapFlow.git
 cd TapFlow
 swift package resolve
 bash scripts/package-app.sh
